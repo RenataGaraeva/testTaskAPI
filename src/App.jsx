@@ -1,100 +1,52 @@
 import "./App.css";
 import Post from "./components/Post/Post.jsx";
 import Comments from "./components/Comments/Comments.jsx";
-import { useState, useEffect } from "react";
 import Pagination from "./components/Pagination/Pagination.jsx";
+import {getUserNames, getAllComments, getPosts} from "./API/API.js"
+import { useState, useEffect } from "react";
 
 function App() {
 
   const [allPosts, setPosts] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const [errorForUsers, setErrorForUsers] = useState(null);
-  const [loadingForUsers, setLoadingForUsers] = useState(true);
   const [allComments, setAllComments] = useState([])
-  const [errorForComments, setErrorForComments] = useState(null)
-  const [loadingForComments, setLoadingForComments] = useState(true)
   const [id, setId] = useState(1)
   const [chosedPosts, setChosedPosts] = useState([])
 
-  let getPosts = async () => {
+  const [isLoading, setIsLoading] = useState({
+    posts: true,
+    users: true,
+    comments: true
+  });
 
-    try {
-      let response = await fetch("https://jsonplaceholder.typicode.com/posts");
-      let posts = await response.json();
-      if (Array.isArray(posts)) {
-        setPosts(posts);
-      } else {
-        setError("некорректный формат ответа");
-      }
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState({
+    posts: null,
+    users: null,
+    comments: null
+  });
 
-  let getUserNames = async () => {
-    try {
-      let response = await fetch("https://jsonplaceholder.typicode.com/users");
-      let listOfUsers = await response.json();
-      if (Array.isArray(listOfUsers)) {
-        setUsers(listOfUsers);
-      } else {
-        setErrorForUsers("некорректный формат ответ");
-      }
-    } catch (error) {
-      setErrorForUsers(error);
-    } finally {
-      setLoadingForUsers(false);
-    }
-  };
-
-  let getAllComments = async () => {
-    try {
-      let response = await fetch("https://jsonplaceholder.typicode.com/comments")
-
-      let listOfAllComments = await response.json()
-
-      if (Array.isArray(listOfAllComments)) {
-        setAllComments(listOfAllComments)
-      } else {
-        setErrorForComments("Ошибка с типом комментария")
-      }
-    }
-    catch (error) {
-      setErrorForComments(error)
-    }
-    finally {
-      setLoadingForComments(false)
-    }
-  }
   useEffect(() => {
-    Promise.all([getPosts(), getUserNames(), getAllComments()]).catch((error) => setError(error));
+    Promise.all([
+      getPosts(setPosts, setError,setIsLoading),
+      getUserNames(setUsers, setError, setIsLoading),
+      getAllComments(setAllComments, setError, setIsLoading)
+        ]).then(console.log)
   }, []);
 
-  if (errorForUsers) {
-    return <div>Ошибка: {errorForUsers.message}</div>;
+  if (isLoading.posts || isLoading.users || isLoading.comments) {
+    return <div>Загружается...</div>;
   }
 
-  if (loadingForUsers) {
-    return <div>Загружается</div>;
+  if (error.posts) {
+    return <div>Ошибка загрузки постов: {error.posts.message}</div>;
   }
 
-  if (error) {
-    return <div>Ошибка: {error.message}</div>;
+  if (error.users) {
+    return <div>Ошибка загрузки пользователей: {error.users.message}</div>;
   }
 
-  if (loading) {
-    return <div>Загружается</div>;
-  }
-  if (errorForComments) {
-    return <div>Ошибка: {errorForComments.message}</div>
-  }
-
-  if (loadingForComments) {
-    return  <div>Загружается</div>
+  if (error.comments) {
+    return <div>Ошибка загрузки комментариев: {error.comments.message}</div>;
   }
 
   return (
