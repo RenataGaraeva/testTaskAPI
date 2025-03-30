@@ -22,7 +22,7 @@ export default function Pagination ({setId, id, allPosts, setChosedPosts}) {
     return (
         <div className="pagination">
             {getMassive(massive).map((page, index) => (
-                <input type="button" value={page} key={index} onClick={() => changePage(page)}/>
+                <input type="button" value={page} key={index} onClick={() => changePage(page)} className="buttonForPagination"/>
             ))}
         </div>
     )
