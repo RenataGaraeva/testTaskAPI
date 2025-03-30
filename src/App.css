@@ -22,70 +22,13 @@ li {
     margin-bottom: 20px;
 }
 
-.post {
-    max-width: 500px;
-}
-
 p {
     max-width: 500px;
     text-align: left;
-}
-
-.comments {
-    max-width: 500px;
-    background: #f9f9f9;
-    border-left: 3px solid #6c63ff;
-    border-radius: 4px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
 }
 
 .containerForAllPosts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-}
-
-.pagination {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.titleOfPost {
-    font-weight: bold;
-    margin-bottom: 8px;
-    text-align: center;
-}
-
-.headerOfComments {
-    text-align: left;
-    padding-left: 40px;
-    opacity: 0.5;
-}
-
-.buttonForComments {
-    appearance: none;
-    border: none;
-    background-color: white;
-}
-
-.buttonForPagination:hover,
-.buttonForComments:hover {
-    border: solid 1px black;
-}
-
-.buttonForPagination {
-    appearance: none;
-    border: none;
-    background-color: white;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    width: 44px;
-
-}
-
-.buttonForComments:active,
-.buttonForPagination:active {
-    background-color: #efe8e8;
 }
