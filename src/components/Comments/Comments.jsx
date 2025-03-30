@@ -15,7 +15,6 @@ export default function Comments({allComments, postId}) {
     }
     let showAllComments = function (comment, id) {
 
-        console.log(comment.body)
         return (
             <>
                 <li>{comment.body}</li>
