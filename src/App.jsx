@@ -1,8 +1,8 @@
 import "./App.css";
-import Post from "./components/Post.jsx";
-import Comments from "./components/Comments.jsx";
+import Post from "./components/Post/Post.jsx";
+import Comments from "./components/Comments/Comments.jsx";
 import { useState, useEffect } from "react";
-import Pagination from "./components/Pagination.jsx";
+import Pagination from "./components/Pagination/Pagination.jsx";
 
 function App() {
 

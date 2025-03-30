@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import "./Pagination.css";
 
 export default function Pagination ({setId, id, allPosts, setChosedPosts}) {
 

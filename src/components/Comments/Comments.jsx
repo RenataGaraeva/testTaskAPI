@@ -1,4 +1,5 @@
 import {useState} from "react";
+import "./Comments.css";
 
 export default function Comments({allComments, postId}) {
     const [commentHided, setCommentHided] = useState({});
