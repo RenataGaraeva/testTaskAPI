@@ -2,35 +2,34 @@ import "./App.css";
 import Post from "./components/Post/Post.jsx";
 import Comments from "./components/Comments/Comments.jsx";
 import Pagination from "./components/Pagination/Pagination.jsx";
-import {getUserNames, getAllComments, getPosts} from "./API/API.js"
+import { getUserNames, getAllComments, getPosts } from "./API/API.js";
 import { useState, useEffect } from "react";
 
 function App() {
-
   const [allPosts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [allComments, setAllComments] = useState([])
-  const [id, setId] = useState(1)
-  const [chosedPosts, setChosedPosts] = useState([])
+  const [allComments, setAllComments] = useState([]);
+  const [id, setId] = useState(1);
+  const [chosedPosts, setChosedPosts] = useState([]);
 
   const [isLoading, setIsLoading] = useState({
     posts: true,
     users: true,
-    comments: true
+    comments: true,
   });
 
   const [error, setError] = useState({
     posts: null,
     users: null,
-    comments: null
+    comments: null,
   });
 
   useEffect(() => {
     Promise.all([
-      getPosts(setPosts, setError,setIsLoading),
+      getPosts(setPosts, setError, setIsLoading),
       getUserNames(setUsers, setError, setIsLoading),
-      getAllComments(setAllComments, setError, setIsLoading)
-        ]).then(console.log)
+      getAllComments(setAllComments, setError, setIsLoading),
+    ]).then(console.log);
   }, []);
 
   if (isLoading.posts || isLoading.users || isLoading.comments) {
@@ -54,10 +53,15 @@ function App() {
       {chosedPosts.map((post) => (
         <article className="containerForPostAndComments" key={post.id}>
           <Post post={post} users={users} />
-          <Comments allComments = {allComments} postId = {post.id}/>
+          <Comments allComments={allComments} postId={post.id} />
         </article>
       ))}
-      <Pagination setId={setId} id = {id} allPosts={allPosts} setChosedPosts = {setChosedPosts}/>
+      <Pagination
+        setId={setId}
+        id={id}
+        allPosts={allPosts}
+        setChosedPosts={setChosedPosts}
+      />
     </div>
   );
 }
