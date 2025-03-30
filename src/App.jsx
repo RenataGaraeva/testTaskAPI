@@ -100,7 +100,7 @@ function App() {
   return (
     <div className="containerForAllPostsAndComments">
       {chosedPosts.map((post) => (
-        <article className="containerForPost" key={post.id}>
+        <article className="containerForPostAndComments" key={post.id}>
           <Post post={post} users={users} />
           <Comments allComments = {allComments} postId = {post.id}/>
         </article>
