@@ -1,24 +1,24 @@
 .buttonForPagination {
-    appearance: none;
-    border: none;
-    background-color: white;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    width: 44px;
-    padding: 1px 6px;
-    font-family: 'Arial', sans-serif;
+  appearance: none;
+  border: none;
+  background-color: white;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  width: 44px;
+  padding: 1px 6px;
+  font-family: "Arial", sans-serif;
 }
 
 .pagination {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .buttonForPagination:hover {
-    border: solid 1px black;
+  border: solid 1px black;
 }
 
 .buttonForPagination:active {
-    background-color: #efe8e8;
+  background-color: #efe8e8;
 }
