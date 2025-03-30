@@ -1,5 +1,6 @@
 import "./App.css";
 import Post from "./components/Post.jsx";
+import Comments from "./components/Comments.jsx";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -10,6 +11,9 @@ function App() {
   const [users, setUsers] = useState([]);
   const [errorForUsers, setErrorForUsers] = useState(null);
   const [loadingForUsers, setLoadingForUsers] = useState(true);
+  const [allComments, setAllComments] = useState([])
+  const [errorForComments, setErrorForComments] = useState(null)
+  const [loadingForComments, setLoadingForComments] = useState(true)
 
   let getPosts = async () => {
 
@@ -44,8 +48,27 @@ function App() {
     }
   };
 
+  let getAllComments = async () => {
+    try {
+      let response = await fetch("https://jsonplaceholder.typicode.com/comments")
+
+      let listOfAllComments = await response.json()
+
+      if (Array.isArray(listOfAllComments)) {
+        setAllComments(listOfAllComments)
+      } else {
+        setErrorForComments("Ошибка с типом комментария")
+      }
+    }
+    catch (error) {
+      setErrorForComments(error)
+    }
+    finally {
+      setLoadingForComments(false)
+    }
+  }
   useEffect(() => {
-    Promise.all([getPosts(), getUserNames()]).catch((error) => setError(error));
+    Promise.all([getPosts(), getUserNames(), getAllComments()]).catch((error) => setError(error));
   }, []);
 
   if (errorForUsers) {
@@ -63,12 +86,20 @@ function App() {
   if (loading) {
     return <div>Загружается</div>;
   }
+  if (errorForComments) {
+    return <div>Ошибка: {errorForComments.message}</div>
+  }
+
+  if (loadingForComments) {
+    return  <div>Загружается</div>
+  }
 
   return (
     <div className="containerForAllPostsAndComments">
       {allPosts.map((post) => (
         <article className="containerForPost" key={post.id}>
           <Post post={post} users={users} />
+          <Comments allComments = {allComments} postId = {post.id}/>
         </article>
       ))}
     </div>
