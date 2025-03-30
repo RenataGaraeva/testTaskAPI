@@ -2,6 +2,7 @@ import "./App.css";
 import Post from "./components/Post.jsx";
 import Comments from "./components/Comments.jsx";
 import { useState, useEffect } from "react";
+import Pagination from "./components/Pagination.jsx";
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
   const [allComments, setAllComments] = useState([])
   const [errorForComments, setErrorForComments] = useState(null)
   const [loadingForComments, setLoadingForComments] = useState(true)
+  const [id, setId] = useState(1)
+  const [chosedPosts, setChosedPosts] = useState([])
 
   let getPosts = async () => {
 
@@ -96,12 +99,13 @@ function App() {
 
   return (
     <div className="containerForAllPostsAndComments">
-      {allPosts.map((post) => (
+      {chosedPosts.map((post) => (
         <article className="containerForPost" key={post.id}>
           <Post post={post} users={users} />
           <Comments allComments = {allComments} postId = {post.id}/>
         </article>
       ))}
+      <Pagination setId={setId} id = {id} allPosts={allPosts} setChosedPosts = {setChosedPosts}/>
     </div>
   );
 }
