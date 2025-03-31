@@ -1,6 +1,7 @@
 import "./Post.css";
 
 export default function Post({ post, users }) {
+
   let getUserName = function (userId) {
     let user = users.find((user) => user["id"] === userId);
     if (user) {
