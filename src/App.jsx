@@ -6,11 +6,12 @@ import { getUserNames, getAllComments, getPosts } from "./API/API.js";
 import { useState, useEffect } from "react";
 
 function App() {
+
   const [allPosts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [allComments, setAllComments] = useState([]);
   const [id, setId] = useState(1);
-  const [chosedPosts, setChosedPosts] = useState([]);
+  const [renderedPosts, setRenderedPosts] = useState([]);
 
   const [isLoading, setIsLoading] = useState({
     posts: true,
@@ -50,7 +51,7 @@ function App() {
 
   return (
     <div className="containerForAllPostsAndComments">
-      {chosedPosts.map((post) => (
+      {renderedPosts.map((post) => (
         <article className="containerForPostAndComments" key={post.id}>
           <Post post={post} users={users} />
           <Comments allComments={allComments} postId={post.id} />
@@ -60,7 +61,7 @@ function App() {
         setId={setId}
         id={id}
         allPosts={allPosts}
-        setChosedPosts={setChosedPosts}
+        setRenderedPosts={setRenderedPosts}
       />
     </div>
   );

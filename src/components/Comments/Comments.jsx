@@ -2,19 +2,21 @@ import { useState } from "react";
 import "./Comments.css";
 
 export default function Comments({ allComments, postId }) {
-  const [commentHided, setCommentHided] = useState({});
 
-  let getAllCommentsWithTheSameId = allComments.filter(
+  const [extraPartOfBigCommentHided, setExtraPartOfBigCommentHided] = useState({});
+
+  let getAllCommentsWithTheSameIdAsPost = allComments.filter(
     (comments) => comments["postId"] === postId,
   );
 
-  let changeFalse = function (id) {
-    setCommentHided((prev) => ({
+  let changeStateOfHidedExtraPartOfBigCommentFromFalse = function (id) {
+    setExtraPartOfBigCommentHided((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
   };
-  let showAllComments = function (comment, id) {
+
+  let showExtraPartOfBigComment = function (comment, id) {
     return (
       <>
         <li>{comment.body}</li>
@@ -22,19 +24,20 @@ export default function Comments({ allComments, postId }) {
           className="buttonForComments"
           type="button"
           value="Скрыть всё"
-          onClick={() => changeFalse(id)}
+          onClick={() => changeStateOfHidedExtraPartOfBigCommentFromFalse(id)}
         />
       </>
     );
   };
 
-  let changeTrue = function (id) {
-    setCommentHided((prev) => ({
+  let changeStateOfHidedExtraPartOfBigCommentFromTrue = function (id) {
+    setExtraPartOfBigCommentHided((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
   };
-  let hideAllComments = function (comment, id) {
+
+  let hideExtraPartOfBigComment = function (comment, id) {
     return (
       <>
         <li>{comment.body.slice(0, 25) + "..."}</li>
@@ -42,7 +45,7 @@ export default function Comments({ allComments, postId }) {
           className="buttonForComments"
           type="button"
           value="Показать всё"
-          onClick={() => changeTrue(id)}
+          onClick={() => changeStateOfHidedExtraPartOfBigCommentFromTrue(id)}
         />
       </>
     );
@@ -52,11 +55,11 @@ export default function Comments({ allComments, postId }) {
     <div>
       <p className="headerOfComments">Комментарии</p>
       <ul>
-        {getAllCommentsWithTheSameId.map((comments) => (
+        {getAllCommentsWithTheSameIdAsPost.map((comments) => (
           <div key={comments.id} className="comments">
-            {commentHided[comments.id]
-              ? showAllComments(comments, comments.id)
-              : hideAllComments(comments, comments.id)}
+            {extraPartOfBigCommentHided[comments.id]
+              ? showExtraPartOfBigComment(comments, comments.id)
+              : hideExtraPartOfBigComment(comments, comments.id)}
           </div>
         ))}
       </ul>
