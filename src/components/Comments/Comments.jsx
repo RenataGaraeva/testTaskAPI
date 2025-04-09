@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Comments.css";
+import CommentExpanded from "./Comment/CommentExpanded.jsx";
+import CommentHided from "./Comment/CommentHided.jsx";
 
 export default function Comments({ allComments, postId }) {
 
@@ -9,48 +11,6 @@ export default function Comments({ allComments, postId }) {
     (comments) => comments["postId"] === postId,
   );
 
-  let changeStateOfHidedExtraPartOfBigCommentFromFalse = function (id) {
-    setExtraPartOfBigCommentHided((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  let showExtraPartOfBigComment = function (comment, id) {
-    return (
-      <>
-        <li>{comment.body}</li>
-        <input
-          className="buttonForComments"
-          type="button"
-          value="Скрыть всё"
-          onClick={() => changeStateOfHidedExtraPartOfBigCommentFromFalse(id)}
-        />
-      </>
-    );
-  };
-
-  let changeStateOfHidedExtraPartOfBigCommentFromTrue = function (id) {
-    setExtraPartOfBigCommentHided((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  let hideExtraPartOfBigComment = function (comment, id) {
-    return (
-      <>
-        <li>{comment.body.slice(0, 25) + "..."}</li>
-        <input
-          className="buttonForComments"
-          type="button"
-          value="Показать всё"
-          onClick={() => changeStateOfHidedExtraPartOfBigCommentFromTrue(id)}
-        />
-      </>
-    );
-  };
-
   return (
     <div>
       <p className="headerOfComments">Комментарии</p>
@@ -58,8 +18,9 @@ export default function Comments({ allComments, postId }) {
         {getAllCommentsWithTheSameIdAsPost.map((comments) => (
           <div key={comments.id} className="comments">
             {extraPartOfBigCommentHided[comments.id]
-              ? showExtraPartOfBigComment(comments, comments.id)
-              : hideExtraPartOfBigComment(comments, comments.id)}
+              ? <CommentExpanded setExtraPartOfBigCommentHided = {setExtraPartOfBigCommentHided} comment = {comments} id = {comments.id} />
+              : <CommentHided setExtraPartOfBigCommentHided = {setExtraPartOfBigCommentHided} comment = {comments} id ={comments.id} />
+            }
           </div>
         ))}
       </ul>
