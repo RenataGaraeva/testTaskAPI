@@ -38,7 +38,7 @@ export default function Pagination({ setId, id, allPosts, setRenderedPosts }) {
 
   return (
       <div className="pagination">
-        <button value="Назад" disabled={firstPageNumber === 0} onClick={getPreviousPage}>Назад</button>
+        <button value="Назад" disabled={firstPageNumber === 0} onClick={getPreviousPage} className="buttonForPagination prevButton">Назад</button>
         {pageNumbers.slice(firstPageNumber, lastPageNumber).map((page, index) => (
             <input
                 type="button"
@@ -48,7 +48,7 @@ export default function Pagination({ setId, id, allPosts, setRenderedPosts }) {
                 className="buttonForPagination"
             />
         ))}
-        <button value="Вперед" disabled={lastPageNumber === pageNumbers.length} onClick={getNextPage}>Вперед</button>
+        <button value="Вперед" disabled={lastPageNumber === pageNumbers.length} onClick={getNextPage} className="buttonForPagination nextButton">Вперед</button>
       </div>
   );
 }

@@ -22,3 +22,9 @@
 .buttonForPagination:active {
   background-color: #efe8e8;
 }
+
+.prevButton,
+.nextButton {
+  color: #6c63ff;
+  width: 80px;
+}
