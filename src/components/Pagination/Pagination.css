@@ -35,7 +35,7 @@
 .nextButton:disabled:active,
 .prevButton:disabled:hover,
 .nextButton:disabled:hover {
- color: gray;
+  color: gray;
   border: none;
   background-color: white;
 }

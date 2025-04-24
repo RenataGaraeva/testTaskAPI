@@ -4,8 +4,9 @@ import CommentExpanded from "./Comment/CommentExpanded.jsx";
 import CommentHided from "./Comment/CommentHided.jsx";
 
 export default function Comments({ allComments, postId }) {
-
-  const [extraPartOfBigCommentHided, setExtraPartOfBigCommentHided] = useState({});
+  const [extraPartOfBigCommentHided, setExtraPartOfBigCommentHided] = useState(
+    {},
+  );
 
   let getAllCommentsWithTheSameIdAsPost = allComments.filter(
     (comments) => comments["postId"] === postId,
@@ -17,10 +18,19 @@ export default function Comments({ allComments, postId }) {
       <ul>
         {getAllCommentsWithTheSameIdAsPost.map((comments) => (
           <div key={comments.id} className="comments">
-            {extraPartOfBigCommentHided[comments.id]
-              ? <CommentExpanded setExtraPartOfBigCommentHided = {setExtraPartOfBigCommentHided} comment = {comments} id = {comments.id} />
-              : <CommentHided setExtraPartOfBigCommentHided = {setExtraPartOfBigCommentHided} comment = {comments} id ={comments.id} />
-            }
+            {extraPartOfBigCommentHided[comments.id] ? (
+              <CommentExpanded
+                setExtraPartOfBigCommentHided={setExtraPartOfBigCommentHided}
+                comment={comments}
+                id={comments.id}
+              />
+            ) : (
+              <CommentHided
+                setExtraPartOfBigCommentHided={setExtraPartOfBigCommentHided}
+                comment={comments}
+                id={comments.id}
+              />
+            )}
           </div>
         ))}
       </ul>
