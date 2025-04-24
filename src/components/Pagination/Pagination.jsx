@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Pagination.css";
 
 export default function Pagination({ setId, id, allPosts, setRenderedPosts }) {
 
-  let countOfPages = allPosts.length / 5;
-  let massiveOfPageNumbers = [];
+  const [pageNumbers, setPageNumbers] = useState([]);
+  const [firstPageNumber, setFirstPageNumber] = useState(0)
+  const [lastPageNumber, setLastPageNumber] = useState(3)
 
-  let pageNumbers = function (massive) {
+  useEffect(() => {
+    const countOfPages = Math.ceil(allPosts.length / 5); // Используем то же деление, что и в slice
+    const massiveOfPageNumbers = [];
     for (let i = 1; i <= countOfPages; i++) {
-      massive.push(i);
+      massiveOfPageNumbers.push(i);
     }
-    return massive;
-  };
+    setPageNumbers(massiveOfPageNumbers);
+  }, [allPosts.length]);
 
   useEffect(() => {
     let firstPost = (allPosts.length / 20) * (id - 1);
@@ -23,17 +26,29 @@ export default function Pagination({ setId, id, allPosts, setRenderedPosts }) {
     setId(pageNumber);
   };
 
+  let getPreviousPage = () => {
+    setFirstPageNumber((firstPageNumber) => firstPageNumber - 1)
+    setLastPageNumber((lastPageNumber) => lastPageNumber - 1)
+  }
+
+  let getNextPage = () => {
+    setFirstPageNumber((firstPageNumber) => firstPageNumber + 1)
+    setLastPageNumber((lastPageNumber) => lastPageNumber + 1)
+  }
+
   return (
-    <div className="pagination">
-      {pageNumbers(massiveOfPageNumbers).map((page, index) => (
-        <input
-          type="button"
-          value={page}
-          key={index}
-          onClick={() => changePage(page)}
-          className="buttonForPagination"
-        />
-      ))}
-    </div>
+      <div className="pagination">
+        <button value="Назад" disabled={firstPageNumber === 0} onClick={getPreviousPage}>Назад</button>
+        {pageNumbers.slice(firstPageNumber, lastPageNumber).map((page, index) => (
+            <input
+                type="button"
+                value={page}
+                key={index}
+                onClick={() => changePage(page)}
+                className="buttonForPagination"
+            />
+        ))}
+        <button value="Вперед" disabled={lastPageNumber === pageNumbers.length} onClick={getNextPage}>Вперед</button>
+      </div>
   );
 }
