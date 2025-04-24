@@ -6,7 +6,6 @@ import { getUserNames, getAllComments, getPosts } from "./API/API.js";
 import { useState, useEffect } from "react";
 
 function App() {
-
   const [allPosts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [allComments, setAllComments] = useState([]);

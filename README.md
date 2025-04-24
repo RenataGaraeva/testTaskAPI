@@ -40,19 +40,25 @@ ES7+ React/Redux/React-Native snippets
 **Установка и запуск**
 
 - Клонируйте репозиторий:
+
 ```
 git clone https://github.com/RenataGaraeva/testTaskAPI.git
 ```
+
 - Установите зависимости:
+
 ```
 npm install
 ```
+
 - Запустите проект:
+
 ```
 npm run dev
 ```
-- Откройте браузер и перейдите по адресу:__
-http://localhost:5173/
+
+- Откройте браузер и перейдите по адресу:\_\_
+  http://localhost:5173/
 
 **Скрипты**
 
