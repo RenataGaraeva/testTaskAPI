@@ -22,3 +22,20 @@
 .buttonForPagination:active {
   background-color: #efe8e8;
 }
+
+.prevButton,
+.nextButton {
+  color: #6c63ff;
+  width: 80px;
+}
+
+.prevButton:disabled,
+.nextButton:disabled,
+.prevButton:disabled:active,
+.nextButton:disabled:active,
+.prevButton:disabled:hover,
+.nextButton:disabled:hover {
+ color: gray;
+  border: none;
+  background-color: white;
+}
